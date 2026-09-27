@@ -27,7 +27,7 @@ public class TransactionController {
     }
 
     @PostMapping("/upload/transactions")
-    public ResponseEntity<List<DefaultCard>> uploadTransactions(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<List<DefaultCard>> uploadTransactions(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
