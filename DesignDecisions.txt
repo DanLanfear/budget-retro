@@ -1,0 +1,24 @@
+MVP1
+-------------
+upload transactions to api and save them in database
+read all transactions from database and display them in a table on frontend
+group transactions by month and then by category and display them in a chart on frontend
+
+open app, upload transaction csv as preprocessed data, and save.
+open app, read all transactions in database and display. Fetch by month and calculate subtotals on front end
+
+
+Phase 2
+-------------
+allow uploading uncategorized transactions and allow user to categorize them in the frontend.
+REQUIRES CATEGORIES IN DATABASE
+
+phase 3
+-------------
+allow user to submit different credit card transaction formats and transform them into common categorizable format
+potentially allow editing transactions in frontend table as well as deleting/updating them before upload
+double potentially allow user to edit transactions post upload in frontend table and save changes to database
+
+phase 4
+-------------
+add login and user specific categories and transactions
