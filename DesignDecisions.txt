@@ -7,17 +7,30 @@ group transactions by month and then by category and display them in a chart on 
 open app, upload transaction csv as preprocessed data, and save.
 open app, read all transactions in database and display. Fetch by month and calculate subtotals on front end
 
+REQUIRES
+Database connection i guess. firebase firestore or something
+Transactions table in database WITH AUDIT COLUMNS?
+Endpoint to upload transactions to database as a .csv
+Endpoint to read all transactions from database and return as json
+Endpoint to fetch a months transactions and return as json
+
 
 Phase 2
 -------------
 allow uploading uncategorized transactions and allow user to categorize them in the frontend.
-REQUIRES CATEGORIES IN DATABASE
+REQUIRES
+Categories table in database
 
 phase 3
 -------------
 allow user to submit different credit card transaction formats and transform them into common categorizable format
 potentially allow editing transactions in frontend table as well as deleting/updating them before upload
 double potentially allow user to edit transactions post upload in frontend table and save changes to database
+
+REQUIRES
+Card format table?
+label | date header | description header | amount header | ChargeIsNegative
+
 
 phase 4
 -------------
