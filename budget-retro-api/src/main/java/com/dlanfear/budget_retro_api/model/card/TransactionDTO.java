@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @JsonPropertyOrder({"date", "description", "amount", "category"})
-public class DefaultCard {
+public class TransactionDTO {
     private Date date;
     private String description;
     private Double amount;

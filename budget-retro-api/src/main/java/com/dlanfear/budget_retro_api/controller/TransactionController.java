@@ -1,6 +1,6 @@
 package com.dlanfear.budget_retro_api.controller;
 
-import com.dlanfear.budget_retro_api.model.card.DefaultCard;
+import com.dlanfear.budget_retro_api.model.card.TransactionDTO;
 import com.dlanfear.budget_retro_api.service.TransactionService;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -27,18 +27,18 @@ public class TransactionController {
     }
 
     @PostMapping("/upload/transactions")
-    public ResponseEntity<List<DefaultCard>> uploadTransactions(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<List<TransactionDTO>> uploadTransactions(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
         try (InputStream inputStream = file.getInputStream()) {
             CsvMapper csvMapper = new CsvMapper();
 
-            CsvSchema csvSchema = csvMapper.schemaFor(DefaultCard.class).withHeader().withColumnReordering(true);
+            CsvSchema csvSchema = csvMapper.schemaFor(TransactionDTO.class).withHeader().withColumnReordering(true);
 
-            MappingIterator<DefaultCard> mappingIterator = csvMapper.readerFor(DefaultCard.class).with(csvSchema).readValues(inputStream);
+            MappingIterator<TransactionDTO> mappingIterator = csvMapper.readerFor(TransactionDTO.class).with(csvSchema).readValues(inputStream);
 
-            List<DefaultCard> transactions = mappingIterator.readAll();
+            List<TransactionDTO> transactions = mappingIterator.readAll();
             transactionService.processTransactions(transactions);
             return ResponseEntity.ok(transactions);
         } catch (IOException e) {
