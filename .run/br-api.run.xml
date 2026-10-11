@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="br-api" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="budget-retro-api" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.dlanfear.budget_retro_api.BudgetRetroApiApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
