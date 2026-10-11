@@ -1,5 +1,6 @@
 package com.dlanfear.budget_retro_api.controller;
 
+import com.dlanfear.budget_retro_api.model.Transaction;
 import com.dlanfear.budget_retro_api.model.card.TransactionDTO;
 import com.dlanfear.budget_retro_api.service.TransactionService;
 import com.fasterxml.jackson.databind.MappingIterator;
@@ -24,6 +25,12 @@ public class TransactionController {
     @Autowired
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Transaction>> getAllTransactions() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        return ResponseEntity.ok(transactions);
     }
 
     @PostMapping("/upload/transactions")
