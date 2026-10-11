@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
+    private String id;
     private String description;
     private Double amount;
     private String date;
