@@ -1,16 +1,18 @@
 MVP1
 -------------
 upload transactions to api and save them in database
+UPLOAD, PROCESS, SHOW BACK IN FRONTEND, THEN SAVE
 read all transactions from database and display them in a table on frontend
 group transactions by month and then by category and display them in a chart on frontend
 
-open app, upload transaction csv as preprocessed data, and save.
+open app, upload transaction csv as preprocessed data. see preview. save. TWO SEPARATE ENDPOINTS
 open app, read all transactions in database and display. Fetch by month and calculate subtotals on front end
 
 REQUIRES
-Database connection i guess. firebase firestore or something
+DONE: Database connection i guess. firebase firestore or something
 Transactions table in database WITH AUDIT COLUMNS?
-Endpoint to upload transactions to database as a .csv
+Endpoint TO process csv and display in frontend table
+Endpoint to save canonical transactions to database
 Endpoint to read all transactions from database and return as json
 Endpoint to fetch a months transactions and return as json
 
