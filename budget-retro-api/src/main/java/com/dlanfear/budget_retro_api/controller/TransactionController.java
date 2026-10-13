@@ -35,8 +35,14 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 
+    @PostMapping()
+    public ResponseEntity<List<Transaction>> saveTransactions(@RequestBody List<Transaction> transactions) {
+        List<Transaction> savedTransactions = transactionService.saveTransactions(transactions);
+        return ResponseEntity.ok(savedTransactions);
+    }
+
     @PostMapping("/upload/transactions")
-    public ResponseEntity<List<Transaction>> uploadTransactions(@RequestBody MultipartFile file) {
+    public ResponseEntity<List<Transaction>> processTransactionCsv(@RequestBody MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
