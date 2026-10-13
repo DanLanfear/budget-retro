@@ -1,7 +1,7 @@
 package com.dlanfear.budget_retro_api.controller;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
-import com.dlanfear.budget_retro_api.model.card.TransactionDTO;
+import com.dlanfear.budget_retro_api.model.card.TransactionCSV;
 import com.dlanfear.budget_retro_api.service.TransactionService;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -17,7 +17,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"https://hoppscotch.io", "http://localhost:4200"}, allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+
 public class TransactionController {
 
     private final TransactionService transactionService;
@@ -34,21 +36,23 @@ public class TransactionController {
     }
 
     @PostMapping("/upload/transactions")
-    public ResponseEntity<List<TransactionDTO>> uploadTransactions(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<List<Transaction>> uploadTransactions(@RequestBody MultipartFile file) {
+        System.out.println("Received file: " + file.getOriginalFilename());
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
         try (InputStream inputStream = file.getInputStream()) {
             CsvMapper csvMapper = new CsvMapper();
 
-            CsvSchema csvSchema = csvMapper.schemaFor(TransactionDTO.class).withHeader().withColumnReordering(true);
+            CsvSchema csvSchema = csvMapper.schemaFor(TransactionCSV.class).withHeader().withColumnReordering(true);
 
-            MappingIterator<TransactionDTO> mappingIterator = csvMapper.readerFor(TransactionDTO.class).with(csvSchema).readValues(inputStream);
+            MappingIterator<TransactionCSV> mappingIterator = csvMapper.readerFor(TransactionCSV.class).with(csvSchema).readValues(inputStream);
 
-            List<TransactionDTO> transactions = mappingIterator.readAll();
-            transactionService.processTransactions(transactions);
+            List<TransactionCSV> transactionInput = mappingIterator.readAll();
+            List<Transaction> transactions = transactionService.processTransactions(transactionInput);
             return ResponseEntity.ok(transactions);
         } catch (IOException e) {
+            System.out.println("Error processing file: " + e.getMessage());
             return ResponseEntity.status(500).build();
         }
     }

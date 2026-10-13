@@ -2,7 +2,6 @@ package com.dlanfear.budget_retro_api.model.card;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 
-import java.util.Date;
 
 @Builder
 @AllArgsConstructor
@@ -10,8 +9,8 @@ import java.util.Date;
 @Getter
 @Setter
 @JsonPropertyOrder({"date", "description", "amount", "category"})
-public class TransactionDTO {
-    private Date date;
+public class TransactionCSV {
+    private String date;
     private String description;
     private Double amount;
     private String category;

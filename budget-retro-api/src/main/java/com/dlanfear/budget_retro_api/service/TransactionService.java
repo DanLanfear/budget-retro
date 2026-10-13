@@ -1,12 +1,14 @@
 package com.dlanfear.budget_retro_api.service;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
-import com.dlanfear.budget_retro_api.model.card.TransactionDTO;
+import com.dlanfear.budget_retro_api.model.card.TransactionCSV;
 import com.dlanfear.budget_retro_api.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,9 +22,21 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public void processTransactions(List<TransactionDTO> transactions) {
+    public List<Transaction> processTransactions(List<TransactionCSV> transactions) {
         log.info("Processing {} transactions", transactions.size());
+        List<Transaction> transactionOutput = new ArrayList<>();
+        for (TransactionCSV entry : transactions) {
+            Transaction transaction = Transaction.builder()
+                    .description(entry.getDescription())
+                    .amount(entry.getAmount())
+                    .date(LocalDate.parse(entry.getDate()))
+                    .category(entry.getCategory())
+                    .build();
+//            transactionRepository.saveTransaction(transaction);
+            transactionOutput.add(transaction);
+        }
         // save to database 100 at a time
+        return transactionOutput;
     }
 
     /**
