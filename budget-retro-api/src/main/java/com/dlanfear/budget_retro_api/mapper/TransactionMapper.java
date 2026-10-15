@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class TransactionMapper {
@@ -22,13 +23,14 @@ public class TransactionMapper {
         if (transactionCSV == null) {
             return null;
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        LocalDate date = LocalDate.parse(transactionCSV.getDate());
+        LocalDate date = LocalDate.parse(transactionCSV.getDate(), formatter);
         return Transaction.builder()
                 .date(date)
-                .description(transactionCSV.getDescription())
+                .description(transactionCSV.getDescription().trim())
                 .amount(transactionCSV.getAmount())
-                .category(transactionCSV.getCategory())
+                .category(transactionCSV.getCategory().trim())
                 .build();
     }
 
