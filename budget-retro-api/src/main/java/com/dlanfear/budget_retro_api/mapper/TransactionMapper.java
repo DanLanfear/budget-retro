@@ -2,8 +2,11 @@ package com.dlanfear.budget_retro_api.mapper;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
 import com.dlanfear.budget_retro_api.model.card.TransactionCsvRecord;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class TransactionMapper {
 
@@ -25,5 +28,34 @@ public class TransactionMapper {
                 .amount(transactionCSV.getAmount())
                 .category(transactionCSV.getCategory())
                 .build();
+    }
+
+    /**
+     * Converts a firestore document to a Transaction object
+     *
+     * @param document The firestore object
+     * @return A transaction object with the document data
+     */
+    public Transaction toTransaction(QueryDocumentSnapshot document) {
+        Transaction transaction = new Transaction();
+        transaction.setId(document.getId());
+        transaction.setDescription(document.getString("description"));
+        transaction.setAmount(document.getDouble("amount"));
+        transaction.setDate(parseDate(document.getTimestamp("date")));
+        transaction.setCategory(document.getString("category"));
+        return transaction;
+    }
+
+    /**
+     * Parses a firestore timestamp to a LocalDate object
+     *
+     * @param timestamp The firestore timestamp from the document
+     * @return The LocalDate object of the timestamp, or null if the timestamp is null
+     */
+    private static LocalDate parseDate(Timestamp timestamp) {
+        if (timestamp == null) {
+            return null;
+        }
+        return timestamp.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }
