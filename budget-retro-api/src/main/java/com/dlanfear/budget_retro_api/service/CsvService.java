@@ -1,5 +1,6 @@
 package com.dlanfear.budget_retro_api.service;
 
+import com.dlanfear.budget_retro_api.mapper.TransactionMapper;
 import com.dlanfear.budget_retro_api.model.Transaction;
 import com.dlanfear.budget_retro_api.model.card.TransactionCSV;
 import com.fasterxml.jackson.databind.MappingIterator;
@@ -12,15 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class CsvService {
 
+    private final TransactionMapper transactionMapper;
+
     @Autowired
-    public CsvService() {
+    public CsvService(TransactionMapper mapper) {
+        this.transactionMapper = mapper;
     }
 
     public List<Transaction> processTransactions(MultipartFile file) throws IOException {
@@ -29,9 +32,7 @@ public class CsvService {
             CsvSchema csvSchema = csvMapper.schemaFor(TransactionCSV.class).withHeader().withColumnReordering(true);
             MappingIterator<TransactionCSV> mappingIterator = csvMapper.readerFor(TransactionCSV.class).with(csvSchema).readValues(inputStream);
             List<TransactionCSV> csvRows = mappingIterator.readAll();
-
-            //todo map from transactionCSV to Transaction
-            return new ArrayList<>();
+            return csvRows.stream().map(transactionMapper::toTransaction).toList();
         } catch (IOException e) {
             System.out.println("Error processing file: " + e.getMessage());
             throw e;
