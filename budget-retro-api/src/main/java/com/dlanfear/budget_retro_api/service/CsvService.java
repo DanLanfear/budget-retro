@@ -2,7 +2,7 @@ package com.dlanfear.budget_retro_api.service;
 
 import com.dlanfear.budget_retro_api.mapper.TransactionMapper;
 import com.dlanfear.budget_retro_api.model.Transaction;
-import com.dlanfear.budget_retro_api.model.card.TransactionCSV;
+import com.dlanfear.budget_retro_api.model.card.TransactionCsvRecord;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -29,9 +29,9 @@ public class CsvService {
     public List<Transaction> processTransactions(MultipartFile file) throws IOException {
         try (InputStream inputStream = file.getInputStream()) {
             CsvMapper csvMapper = new CsvMapper();
-            CsvSchema csvSchema = csvMapper.schemaFor(TransactionCSV.class).withHeader().withColumnReordering(true);
-            MappingIterator<TransactionCSV> mappingIterator = csvMapper.readerFor(TransactionCSV.class).with(csvSchema).readValues(inputStream);
-            List<TransactionCSV> csvRows = mappingIterator.readAll();
+            CsvSchema csvSchema = csvMapper.schemaFor(TransactionCsvRecord.class).withHeader().withColumnReordering(true);
+            MappingIterator<TransactionCsvRecord> mappingIterator = csvMapper.readerFor(TransactionCsvRecord.class).with(csvSchema).readValues(inputStream);
+            List<TransactionCsvRecord> csvRows = mappingIterator.readAll();
             return csvRows.stream().map(transactionMapper::toTransaction).toList();
         } catch (IOException e) {
             System.out.println("Error processing file: " + e.getMessage());

@@ -1,7 +1,7 @@
 package com.dlanfear.budget_retro_api.mapper;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
-import com.dlanfear.budget_retro_api.model.card.TransactionCSV;
+import com.dlanfear.budget_retro_api.model.card.TransactionCsvRecord;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ public class TransactionMapper {
      * @param transactionCSV The CSV record
      * @return A Transaction object
      */
-    public Transaction toTransaction(TransactionCSV transactionCSV) {
+    public Transaction toTransaction(TransactionCsvRecord transactionCSV) {
         if (transactionCSV == null) {
             return null;
         }

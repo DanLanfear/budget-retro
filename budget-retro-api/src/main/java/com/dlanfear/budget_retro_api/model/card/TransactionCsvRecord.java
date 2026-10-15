@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @JsonPropertyOrder({"date", "description", "amount", "category"})
-public class TransactionCSV {
+public class TransactionCsvRecord {
     private String date;
     private String description;
     private Double amount;
