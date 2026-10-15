@@ -2,7 +2,7 @@ package com.dlanfear.budget_retro_api.service;
 
 import com.dlanfear.budget_retro_api.mapper.TransactionMapper;
 import com.dlanfear.budget_retro_api.model.Transaction;
-import com.dlanfear.budget_retro_api.model.card.TransactionCsvRecord;
+import com.dlanfear.budget_retro_api.model.csv.TransactionCsvRecord;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;

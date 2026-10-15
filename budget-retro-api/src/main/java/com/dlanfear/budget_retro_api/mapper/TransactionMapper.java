@@ -1,7 +1,7 @@
 package com.dlanfear.budget_retro_api.mapper;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
-import com.dlanfear.budget_retro_api.model.card.TransactionCsvRecord;
+import com.dlanfear.budget_retro_api.model.csv.TransactionCsvRecord;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.stereotype.Component;

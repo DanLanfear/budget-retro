@@ -1,4 +1,4 @@
-package com.dlanfear.budget_retro_api.model.card;
+package com.dlanfear.budget_retro_api.model.csv;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 
