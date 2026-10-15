@@ -26,6 +26,13 @@ public class CsvService {
         this.transactionMapper = mapper;
     }
 
+    /**
+     * Processes a CSV file containing transaction data and maps it to a list of Transaction objects.
+     *
+     * @param file The file with the csv records
+     * @return The list of transaction objects
+     * @throws IOException if there is an error reading the file
+     */
     public List<Transaction> processTransactions(MultipartFile file) throws IOException {
         try (InputStream inputStream = file.getInputStream()) {
             CsvMapper csvMapper = new CsvMapper();
