@@ -1,10 +1,8 @@
 package com.dlanfear.budget_retro_api.repository;
 
+import com.dlanfear.budget_retro_api.model.Transaction;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,5 +38,42 @@ public class TransactionRepository {
         CollectionReference transRef = getTransactionsCollection();
         ApiFuture<QuerySnapshot> future = transRef.get();
         return future.get().getDocuments();
+    }
+
+    /**
+     * Saves a list of transactions in a batch of 500 maximum
+     *
+     * @param transactions The list of transactions
+     */
+    public List<Transaction> saveTransactions(List<Transaction> transactions) {
+        CollectionReference transRef = getTransactionsCollection();
+        int totalSize = transactions.size();
+        int batchLimit = 500;
+
+        for (int i = 0; i < totalSize; i += batchLimit) {
+            int endIndex = Math.min(i + batchLimit, totalSize);
+            List<Transaction> chunk = transactions.subList(i, endIndex);
+
+            WriteBatch batch = firestore.batch();
+
+            for (Transaction transaction : chunk) {
+                DocumentReference docRef;
+                if (transaction.getId() != null && !transaction.getId().trim().isEmpty()) {
+                    docRef = transRef.document(transaction.getId());
+                } else {
+                    docRef = transRef.document();
+                    transaction.setId(docRef.getId());
+                }
+                batch.set(docRef, transaction);
+
+                try {
+                    batch.commit().get();
+
+                } catch (Exception e) {
+                    System.err.println("Batch write failed: " + e.getMessage());
+                }
+            }
+        }
+        return transactions;
     }
 }

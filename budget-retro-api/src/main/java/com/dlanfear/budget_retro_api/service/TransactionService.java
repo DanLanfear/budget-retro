@@ -32,9 +32,7 @@ public class TransactionService {
      */
     public List<Transaction> saveTransactions(List<Transaction> transactions) {
         log.info("Processing {} transactions", transactions.size());
-        // todo use mapper class to convert from Transaction to potential firestore transaction if need be
-        return new ArrayList<>();
-        // save to database 100 at a time
+        return this.transactionRepository.saveTransactions(transactions);
     }
 
     /**
