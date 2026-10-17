@@ -51,6 +51,16 @@ public class TransactionMapper {
     }
 
     /**
+     * Turns a transaction object into a document for the firestore
+     *
+     * @param transaction The transaction object for the domain
+     * @return QueryDocumentSnapshot of the transaction object
+     */
+    public QueryDocumentSnapshot toDocument(Transaction transaction) {
+        return null;
+    }
+
+    /**
      * Parses a firestore timestamp to a LocalDate object
      *
      * @param timestamp The firestore timestamp from the document
