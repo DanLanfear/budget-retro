@@ -12,7 +12,7 @@ REQUIRES
 DONE: Database connection i guess. firebase firestore or something
 Transactions table in database WITH AUDIT COLUMNS?
 DONE: Endpoint TO process csv and display in frontend table
-Endpoint to save canonical transactions to database
+DONE: Endpoint to save canonical transactions to database
 DONE: Endpoint to read all transactions from database and return as json
 Endpoint to fetch a months transactions and return as json
 
