@@ -1,5 +1,6 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import './App.css'
+import Navbar from "./components/Navbar.tsx";
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
             Anything placed outside <Routes> (like a global Footer) renders on every single page.
             */}
             <div className="app-shell">
-                {/*<Navbar/>*/}
+                <Navbar/>
                 <main className="main-content">
                     <Routes>
                         <Route
