@@ -80,11 +80,7 @@ function DataTable({rows}: { rows: DataObject[] }) {
     );
 }
 
-function ImportPage({
-                        onSubmit,
-                    }: {
-    onSubmit: (rows: DataObject[]) => void;
-}) {
+function ImportPage({onSubmit,}: { onSubmit: (rows: DataObject[]) => void; }) {
     const [preview, setPreview] = useState<DataObject[]>([]);
     const [filename, setFilename] = useState("");
     const [message, setMessage] = useState("");
