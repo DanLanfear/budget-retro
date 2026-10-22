@@ -1,11 +1,8 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
-import './App.css'
 import Navbar from "./components/Navbar.tsx";
 
 function App() {
-
     return (
-
         <BrowserRouter>
             {/*
             GLOBAL LAYOUT WRAPPER
@@ -35,7 +32,6 @@ function App() {
 
                         {/* Catch-all: Redirects any broken links back to the home page */}
                         <Route path="*" element={<Navigate to="/" replace/>}/>
-
                     </Routes>
                 </main>
             </div>
