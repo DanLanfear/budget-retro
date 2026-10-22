@@ -1,7 +1,13 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navbar from "./components/Navbar.tsx";
+import ImportPage from "./pages/ImportPage.tsx";
 
 function App() {
+
+    function addObjects() {
+        console.log('test');
+    }
+
     return (
         <BrowserRouter>
             {/*
@@ -14,7 +20,7 @@ function App() {
                     <Routes>
                         <Route
                             path="/"
-                            // element={<ImportPage onSubmit={addObjects}/>}
+                            element={<ImportPage onSubmit={addObjects}/>}
                         />
                         <Route
                             path="/objects"
