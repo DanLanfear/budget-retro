@@ -4,26 +4,39 @@ import './App.css'
 function App() {
 
     return (
+
         <BrowserRouter>
             {/*
             GLOBAL LAYOUT WRAPPER
             Anything placed outside <Routes> (like a global Footer) renders on every single page.
             */}
-            <div>
-                <Routes>
-                    {/* Public Routes (Current Pages) */}
-                    {/*<Route path="/" element={<Home/>}/>*/}
-                    {/*<Route path="/upload" element={<Upload/>}/>*/}
-                    {/*<Route path="/settings" element={<View/>}/>*/}
+            <div className="app-shell">
+                {/*<Navbar/>*/}
+                <main className="main-content">
+                    <Routes>
+                        <Route
+                            path="/"
+                            // element={<ImportPage onSubmit={addObjects}/>}
+                        />
+                        <Route
+                            path="/objects"
+                            // element={<ObjectsPage rows={objects}/>}
+                        />
+                        <Route
+                            path="/dashboard"
+                            // element={<DashboardPage rows={objects}/>}
+                        />
 
-                    {/* FUTURE: Authentication Routes
-                      <Route path="/login" element={<Login />} />
-                      <Route path="/register" element={<Register />} />
-                    */}
+                        {/* FUTURE: Authentication Routes
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        */}
 
-                    {/* Catch-all: Redirects any broken links back to the home page */}
-                    <Route path="*" element={<Navigate to="/" replace/>}/>
-                </Routes>
+                        {/* Catch-all: Redirects any broken links back to the home page */}
+                        <Route path="*" element={<Navigate to="/" replace/>}/>
+
+                    </Routes>
+                </main>
             </div>
         </BrowserRouter>
     );
