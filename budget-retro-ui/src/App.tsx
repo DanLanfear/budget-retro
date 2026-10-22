@@ -6,9 +6,9 @@ function App() {
     return (
         <BrowserRouter>
             {/*
-        GLOBAL LAYOUT WRAPPER
-        Anything placed outside <Routes> (like a global Footer) renders on every single page.
-      */}
+            GLOBAL LAYOUT WRAPPER
+            Anything placed outside <Routes> (like a global Footer) renders on every single page.
+            */}
             <div>
                 <Routes>
                     {/* Public Routes (Current Pages) */}
