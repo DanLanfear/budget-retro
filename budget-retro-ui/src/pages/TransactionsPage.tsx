@@ -1,9 +1,18 @@
-import {useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 
 export function TransactionsPage() {
     const [search, setSearch] = useState("");
     const [month, setMonth] = useState("");
     const [rows, setRows] = useState([]);
+
+    const fetchData = useCallback(async () => {
+        const data = [];
+        setRows(data);
+    }, []);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData])
 
     const filtered = useMemo(() => {
         return rows.filter((item) => {
