@@ -1,6 +1,7 @@
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navbar from "./components/Navbar.tsx";
 import ImportPage from "./pages/ImportPage.tsx";
+import {TransactionsPage} from "./pages/TransactionsPage.tsx";
 
 function App() {
 
@@ -23,8 +24,8 @@ function App() {
                             element={<ImportPage onSubmit={addObjects}/>}
                         />
                         <Route
-                            path="/objects"
-                            // element={<ObjectsPage rows={objects}/>}
+                            path="/transactions"
+                            element={<TransactionsPage/>}
                         />
                         <Route
                             path="/dashboard"

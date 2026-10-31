@@ -13,8 +13,8 @@ function Navbar() {
                 <NavLink to="/" end>
                     Import & Submit
                 </NavLink>
-                <NavLink to="/objects">
-                    All Objects
+                <NavLink to="/transactions">
+                    All Transactions
                 </NavLink>
                 <NavLink to="/dashboard">
                     Dashboard
