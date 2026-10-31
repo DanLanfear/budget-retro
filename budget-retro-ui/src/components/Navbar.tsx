@@ -16,9 +16,6 @@ function Navbar() {
                 <NavLink to="/transactions">
                     All Transactions
                 </NavLink>
-                <NavLink to="/dashboard">
-                    Dashboard
-                </NavLink>
             </nav>
 
             {/*<div className="profile">JD</div>*/}
