@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {getTransactions} from "../api/transactionApi.ts";
 import type {Transaction} from "../types/transaction.tsx";
+import DataTable from "../components/DataTable.tsx";
 
 export function TransactionsPage() {
     const [search, setSearch] = useState("");
@@ -59,7 +60,7 @@ export function TransactionsPage() {
                 </label>
             </div>
 
-            {/*<DataTable rows={filtered}/>*/}
+            <DataTable rows={filtered}/>
             <p className="table-footer">
                 Showing {filtered.length} of {rows.length} records
             </p>
