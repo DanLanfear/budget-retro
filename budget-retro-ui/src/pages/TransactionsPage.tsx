@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
+import {getTransactions} from "../api/transactionApi.ts";
 
 export function TransactionsPage() {
     const [search, setSearch] = useState("");
@@ -6,7 +7,7 @@ export function TransactionsPage() {
     const [rows, setRows] = useState([]);
 
     const fetchData = useCallback(async () => {
-        const data = [];
+        const data = await getTransactions();
         setRows(data);
     }, []);
 
