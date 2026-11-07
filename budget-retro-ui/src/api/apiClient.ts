@@ -17,29 +17,27 @@ apiClient.interceptors.request.use(
     },
 );
 
-export const handleApiError = (error) => {
-    const status = error?.response?.status;
-    console.log(status);
-
-    return Promise.resolve();
-}
-
-export const handleResponseError = async (error) => {
-    const originalRequest = error.config;
-
-    console.log(originalRequest);
-
-
-    handleApiError(error);
-
-    return Promise.reject(error);
-}
-
-apiClient.interceptors.response.use((response) => {
-    return response;
-}, handleResponseError);
-
-export default apiClient;
+// export const handleApiError = (error) => {
+//     const status = error?.response?.status;
+//     console.log(status);
+//
+//     return Promise.resolve();
+// }
+//
+// export const handleResponseError = async (error) => {
+//     const originalRequest = error.config;
+//
+//     console.log(originalRequest);
+//
+//
+//     handleApiError(error);
+//
+//     return Promise.reject(error);
+// }
+//
+// apiClient.interceptors.response.use((response) => {
+//     return response;
+// }, handleResponseError);
 
 export const createApiClient = (basePath) => {
     return {
