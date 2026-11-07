@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -48,7 +49,7 @@ public class TransactionService {
             for (QueryDocumentSnapshot document : documents) {
                 transactions.add(this.transactionMapper.toTransaction(document));
             }
-            return transactions;
+            return transactions.stream().sorted(Comparator.comparing(Transaction::getDate)).toList();
         } catch (Exception e) {
             log.error("Error occurred while fetching all transactions", e);
             throw new RuntimeException("Error occurred while fetching all transactions", e);
