@@ -5,7 +5,7 @@ import type {Transaction} from "../types/transaction.tsx";
 const transactionApi = createApiClient("/api/transactions");
 
 
-export async function getTransactions(): Promise<Transaction> {
+export async function getTransactions(): Promise<Transaction[]> {
     try {
         const response = await transactionApi.get();
         return response.data;

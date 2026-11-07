@@ -1,10 +1,11 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {getTransactions} from "../api/transactionApi.ts";
+import type {Transaction} from "../types/transaction.tsx";
 
 export function TransactionsPage() {
     const [search, setSearch] = useState("");
     const [month, setMonth] = useState("");
-    const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState<Transaction[]>([]);
 
     const fetchData = useCallback(async () => {
         const data = await getTransactions();
@@ -18,7 +19,7 @@ export function TransactionsPage() {
     const filtered = useMemo(() => {
         return rows.filter((item) => {
             const matchesSearch = [
-                item.id, item.name, item.category, item.status,
+                item.id, item.description, item.category,
             ].some((value) =>
                 value.toLowerCase().includes(search.toLowerCase())
             );
