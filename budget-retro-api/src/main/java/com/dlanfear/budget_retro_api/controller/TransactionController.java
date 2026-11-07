@@ -15,8 +15,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/transactions")
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = {"https://hoppscotch.io", "http://localhost:4200"}, allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = {"https://hoppscotch.io", "http://localhost:5173"}, allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 
 public class TransactionController {
 
