@@ -8,6 +8,7 @@ function DataTable({rows}: { rows: Transaction[] }) {
                 <tr>
                     <th>Description</th>
                     <th>Date</th>
+                    <th>Amount</th>
                     <th>Category</th>
                 </tr>
                 </thead>
@@ -16,6 +17,7 @@ function DataTable({rows}: { rows: Transaction[] }) {
                     <tr key={item.id}>
                         <td className="cell-name">{item.description}</td>
                         <td>{item.date}</td>
+                        <td>{item.amount}</td>
                         <td>{item.category}</td>
                     </tr>
                 ))}
