@@ -40,9 +40,15 @@ function ImportPage() {
 
     async function submit() {
         if (!preview.length) return;
-        const addedTransactions = await saveTransactions(preview);
-        setMessage(`${addedTransactions.length} objects added.`);
-        setPreview([]);
+        try {
+            const addedTransactions = await saveTransactions(preview);
+            setMessage(`${addedTransactions.length} objects added.`);
+            setPreview([]);
+        } catch (error) {
+            setMessage(
+                error instanceof Error ? error.message : "Unable to save transactions."
+            );
+        }
         setFilename("");
     }
 
