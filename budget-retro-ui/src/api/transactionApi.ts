@@ -37,10 +37,10 @@ export async function processTransactionCsv(file: File): Promise<Transaction[]> 
  */
 export async function saveTransactions(transactions: Transaction[]): Promise<Transaction[]> {
     try {
-        const payload = {transactions};
-        const response = await transactionApi.post('', payload);
+        const response = await transactionApi.post("", transactions);
         return response.data;
     } catch (error) {
         console.error("Error saving transactions: ", error);
+        throw error;
     }
 }
