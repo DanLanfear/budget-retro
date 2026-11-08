@@ -2,6 +2,7 @@ package com.dlanfear.budget_retro_api.mapper;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
 import com.dlanfear.budget_retro_api.model.csv.TransactionCsvRecord;
+import com.dlanfear.budget_retro_api.model.documents.TransactionDocument;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.stereotype.Component;
@@ -57,8 +58,17 @@ public class TransactionMapper {
      * @param transaction The transaction object for the domain
      * @return QueryDocumentSnapshot of the transaction object
      */
-    public QueryDocumentSnapshot toDocument(Transaction transaction) {
-        return null;
+    public TransactionDocument toDocument(Transaction transaction) {
+        if (transaction == null) {
+            return null;
+        }
+        TransactionDocument document = new TransactionDocument();
+        document.setId(transaction.getId());
+        document.setDescription(transaction.getDescription());
+        document.setAmount(transaction.getAmount());
+        document.setDate(transaction.getTimestamp());
+        document.setCategory(transaction.getCategory());
+        return document;
     }
 
     /**

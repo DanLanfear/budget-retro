@@ -2,6 +2,7 @@ package com.dlanfear.budget_retro_api.service;
 
 import com.dlanfear.budget_retro_api.mapper.TransactionMapper;
 import com.dlanfear.budget_retro_api.model.Transaction;
+import com.dlanfear.budget_retro_api.model.documents.TransactionDocument;
 import com.dlanfear.budget_retro_api.repository.TransactionRepository;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,14 @@ public class TransactionService {
      */
     public List<Transaction> saveTransactions(List<Transaction> transactions) {
         log.info("Processing {} transactions", transactions.size());
-        return this.transactionRepository.saveTransactions(transactions);
+        List<TransactionDocument> documents = new ArrayList<>();
+        //TODO: fix the timestamp conversion
+        for (Transaction transaction : transactions) {
+            TransactionDocument document = transactionMapper.toDocument(transaction);
+            documents.add(document);
+        }
+        this.transactionRepository.saveTransactions(documents);
+        return transactions;
     }
 
     /**
