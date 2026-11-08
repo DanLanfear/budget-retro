@@ -1,7 +1,10 @@
 import {useState} from "react";
+import DataTable from "../components/DataTable.tsx";
+import type {Transaction} from "../types/transaction.tsx";
+import {processTransactionCsv} from "../api/transactionApi.ts";
 
-function ImportPage({onSubmit,}: { onSubmit: (rows: Object[]) => void; }) {
-    const [preview, setPreview] = useState<Object[]>([]);
+function ImportPage({onSubmit,}: { onSubmit: (rows: Transaction[]) => void; }) {
+    const [preview, setPreview] = useState<Transaction[]>([]);
     const [filename, setFilename] = useState("");
     const [message, setMessage] = useState("");
 
@@ -13,55 +16,18 @@ function ImportPage({onSubmit,}: { onSubmit: (rows: Object[]) => void; }) {
 
         try {
             const text = await file.text();
-            let rows: Object[];
+            let rows: Transaction[];
 
-            if (file.name.toLowerCase().endsWith(".json")) {
-                const parsed = JSON.parse(text);
-                if (!Array.isArray(parsed)) {
-                    throw new Error("JSON must contain an array of objects.");
-                }
-                rows = parsed.map((item, i) => ({
-                    id: String(item.id ?? `NEW-${i + 1}`),
-                    name: String(item.name ?? ""),
-                    category: String(item.category ?? ""),
-                    date: String(item.date ?? ""),
-                    status: String(item.status ?? "Pending"),
-                }));
-            } else if (file.name.toLowerCase().endsWith(".csv")) {
+            if (file.name.toLowerCase().endsWith(".csv")) {
                 const lines = text.trim().split(/\r?\n/);
                 if (lines.length < 2) {
                     throw new Error("CSV must contain headers and at least one row.");
                 }
-
-                // Basic CSV parser for simple files without quoted commas.
-                const headers = lines[0].split(",").map((h) =>
-                    h.trim().toLowerCase()
-                );
-
-                rows = lines.slice(1).filter(Boolean).map((line, i) => {
-                    const values = line.split(",");
-                    const record = Object.fromEntries(
-                        headers.map((header, index) => [
-                            header,
-                            (values[index] ?? "").trim(),
-                        ])
-                    );
-
-                    return {
-                        id: record.id || `NEW-${i + 1}`,
-                        name: record.name || "",
-                        category: record.category || "",
-                        date: record.date || "",
-                        status: record.status || "Pending",
-                    };
-                });
+                rows = await processTransactionCsv(file);
+                setPreview(rows);
             } else {
-                throw new Error("Please upload a .csv or .json file.");
+                throw new Error("Please upload a .csv file.");
             }
-
-            // if (rows.some((row) => !row.name || !row.date)) {
-            //     throw new Error("Every object must have a name and date.");
-            // }
 
             setPreview(rows);
         } catch (error) {
@@ -117,13 +83,13 @@ function ImportPage({onSubmit,}: { onSubmit: (rows: Object[]) => void; }) {
                 )}
             </div>
 
-            {/*{preview.length > 0 ? (*/}
-            {/*    <DataTable rows={preview}/>*/}
-            {/*) : (*/}
-            {/*    <div className="empty-card">*/}
-            {/*        Your uploaded objects will appear here for review.*/}
-            {/*    </div>*/}
-            {/*)}*/}
+            {preview.length > 0 ? (
+                <DataTable rows={preview}/>
+            ) : (
+                <div className="empty-card">
+                    Your uploaded objects will appear here for review.
+                </div>
+            )}
         </section>
     );
 }
