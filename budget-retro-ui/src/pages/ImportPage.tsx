@@ -1,7 +1,7 @@
 import {useState} from "react";
 import DataTable from "../components/DataTable.tsx";
 import type {Transaction} from "../types/transaction.tsx";
-import {processTransactionCsv} from "../api/transactionApi.ts";
+import {processTransactionCsv, saveTransactions} from "../api/transactionApi.ts";
 
 function ImportPage() {
     const [preview, setPreview] = useState<Transaction[]>([]);
@@ -38,9 +38,10 @@ function ImportPage() {
         }
     }
 
-    function submit() {
+    async function submit() {
         if (!preview.length) return;
-        setMessage(`${preview.length} objects added.`);
+        const addedTransactions = await saveTransactions(preview);
+        setMessage(`${addedTransactions.length} objects added.`);
         setPreview([]);
         setFilename("");
     }

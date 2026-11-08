@@ -30,3 +30,17 @@ export async function processTransactionCsv(file: File): Promise<Transaction[]> 
         throw error;
     }
 }
+
+/**
+ * Saves a list of transactions to the database
+ * @param transactions
+ */
+export async function saveTransactions(transactions: Transaction[]): Promise<Transaction[]> {
+    try {
+        const payload = {transactions};
+        const response = await transactionApi.post('', payload);
+        return response.data;
+    } catch (error) {
+        console.error("Error saving transactions: ", error);
+    }
+}
