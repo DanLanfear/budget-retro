@@ -5,10 +5,6 @@ import {TransactionsPage} from "./pages/TransactionsPage.tsx";
 
 function App() {
 
-    function addObjects() {
-        console.log('test');
-    }
-
     return (
         <BrowserRouter>
             {/*
@@ -21,7 +17,7 @@ function App() {
                     <Routes>
                         <Route
                             path="/"
-                            element={<ImportPage onSubmit={addObjects}/>}
+                            element={<ImportPage/>}
                         />
                         <Route
                             path="/transactions"

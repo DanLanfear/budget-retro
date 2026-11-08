@@ -3,7 +3,7 @@ import DataTable from "../components/DataTable.tsx";
 import type {Transaction} from "../types/transaction.tsx";
 import {processTransactionCsv} from "../api/transactionApi.ts";
 
-function ImportPage({onSubmit,}: { onSubmit: (rows: Transaction[]) => void; }) {
+function ImportPage() {
     const [preview, setPreview] = useState<Transaction[]>([]);
     const [filename, setFilename] = useState("");
     const [message, setMessage] = useState("");
@@ -40,8 +40,7 @@ function ImportPage({onSubmit,}: { onSubmit: (rows: Transaction[]) => void; }) {
 
     function submit() {
         if (!preview.length) return;
-        onSubmit(preview);
-        setMessage(`${preview.length} objects added to the local app state.`);
+        setMessage(`${preview.length} objects added.`);
         setPreview([]);
         setFilename("");
     }
