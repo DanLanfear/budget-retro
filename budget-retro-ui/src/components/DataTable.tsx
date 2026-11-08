@@ -6,19 +6,17 @@ function DataTable({rows}: { rows: Transaction[] }) {
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Description</th>
-                    <th>Category</th>
                     <th>Date</th>
+                    <th>Category</th>
                 </tr>
                 </thead>
                 <tbody>
                 {rows.map((item) => (
                     <tr key={item.id}>
-                        <td className="muted">{item.id}</td>
                         <td className="cell-name">{item.description}</td>
-                        <td>{item.category}</td>
                         <td>{item.date}</td>
+                        <td>{item.category}</td>
                     </tr>
                 ))}
                 {rows.length === 0 && (
