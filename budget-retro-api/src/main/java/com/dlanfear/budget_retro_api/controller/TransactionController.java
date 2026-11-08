@@ -41,7 +41,7 @@ public class TransactionController {
     }
 
     @PostMapping("/upload/transactions")
-    public ResponseEntity<List<Transaction>> processTransactionCsv(@RequestBody MultipartFile file) {
+    public ResponseEntity<List<Transaction>> processTransactionCsv(@RequestParam MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
