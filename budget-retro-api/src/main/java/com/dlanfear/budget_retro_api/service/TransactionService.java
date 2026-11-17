@@ -35,7 +35,7 @@ public class TransactionService {
     public List<Transaction> saveTransactions(List<Transaction> transactions) {
         log.info("Processing {} transactions", transactions.size());
         List<TransactionDocument> documents = new ArrayList<>();
-        //TODO: fix the timestamp  conversion
+        //TODO: fix the timestamp conversion
         for (Transaction transaction : transactions) {
             TransactionDocument document = transactionMapper.toDocument(transaction);
             documents.add(document);
