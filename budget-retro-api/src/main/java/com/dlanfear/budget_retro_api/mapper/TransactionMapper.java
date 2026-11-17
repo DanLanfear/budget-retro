@@ -81,6 +81,6 @@ public class TransactionMapper {
         if (timestamp == null) {
             return null;
         }
-        return timestamp.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return timestamp.toDate().toInstant().atZone(ZoneId.of("UTC")).toLocalDate();
     }
 }
