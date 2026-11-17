@@ -2,6 +2,7 @@ package com.dlanfear.budget_retro_api.service;
 
 import com.dlanfear.budget_retro_api.mapper.TransactionMapper;
 import com.dlanfear.budget_retro_api.model.Transaction;
+import com.dlanfear.budget_retro_api.model.documents.TransactionDocument;
 import com.dlanfear.budget_retro_api.repository.TransactionRepository;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -32,7 +34,13 @@ public class TransactionService {
      */
     public List<Transaction> saveTransactions(List<Transaction> transactions) {
         log.info("Processing {} transactions", transactions.size());
-        return this.transactionRepository.saveTransactions(transactions);
+        List<TransactionDocument> documents = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            TransactionDocument document = transactionMapper.toDocument(transaction);
+            documents.add(document);
+        }
+        this.transactionRepository.saveTransactions(documents);
+        return transactions;
     }
 
     /**
@@ -48,7 +56,7 @@ public class TransactionService {
             for (QueryDocumentSnapshot document : documents) {
                 transactions.add(this.transactionMapper.toTransaction(document));
             }
-            return transactions;
+            return transactions.stream().sorted(Comparator.comparing(Transaction::getDate)).toList();
         } catch (Exception e) {
             log.error("Error occurred while fetching all transactions", e);
             throw new RuntimeException("Error occurred while fetching all transactions", e);

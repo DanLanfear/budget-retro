@@ -1,6 +1,6 @@
 package com.dlanfear.budget_retro_api.repository;
 
-import com.dlanfear.budget_retro_api.model.Transaction;
+import com.dlanfear.budget_retro_api.model.documents.TransactionDocument;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +45,18 @@ public class TransactionRepository {
      *
      * @param transactions The list of transactions
      */
-    public List<Transaction> saveTransactions(List<Transaction> transactions) {
+    public List<TransactionDocument> saveTransactions(List<TransactionDocument> transactions) {
         CollectionReference transRef = getTransactionsCollection();
         int totalSize = transactions.size();
         int batchLimit = 500;
 
         for (int i = 0; i < totalSize; i += batchLimit) {
             int endIndex = Math.min(i + batchLimit, totalSize);
-            List<Transaction> chunk = transactions.subList(i, endIndex);
+            List<TransactionDocument> chunk = transactions.subList(i, endIndex);
 
             WriteBatch batch = firestore.batch();
 
-            for (Transaction transaction : chunk) {
+            for (TransactionDocument transaction : chunk) {
                 DocumentReference docRef;
                 if (transaction.getId() != null && !transaction.getId().trim().isEmpty()) {
                     docRef = transRef.document(transaction.getId());
@@ -68,7 +68,6 @@ public class TransactionRepository {
 
                 try {
                     batch.commit().get();
-
                 } catch (Exception e) {
                     System.err.println("Batch write failed: " + e.getMessage());
                 }

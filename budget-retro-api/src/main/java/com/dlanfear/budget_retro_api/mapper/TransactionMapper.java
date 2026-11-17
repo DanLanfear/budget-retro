@@ -2,6 +2,7 @@ package com.dlanfear.budget_retro_api.mapper;
 
 import com.dlanfear.budget_retro_api.model.Transaction;
 import com.dlanfear.budget_retro_api.model.csv.TransactionCsvRecord;
+import com.dlanfear.budget_retro_api.model.documents.TransactionDocument;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.stereotype.Component;
@@ -23,9 +24,10 @@ public class TransactionMapper {
         if (transactionCSV == null) {
             return null;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+        // Turn date string in csv to localdate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate date = LocalDate.parse(transactionCSV.getDate(), formatter);
+
         return Transaction.builder()
                 .date(date)
                 .description(transactionCSV.getDescription().trim())
@@ -56,8 +58,17 @@ public class TransactionMapper {
      * @param transaction The transaction object for the domain
      * @return QueryDocumentSnapshot of the transaction object
      */
-    public QueryDocumentSnapshot toDocument(Transaction transaction) {
-        return null;
+    public TransactionDocument toDocument(Transaction transaction) {
+        if (transaction == null) {
+            return null;
+        }
+        TransactionDocument document = new TransactionDocument();
+        document.setId(transaction.getId());
+        document.setDescription(transaction.getDescription());
+        document.setAmount(transaction.getAmount());
+        document.setDate(transaction.getTimestamp());
+        document.setCategory(transaction.getCategory());
+        return document;
     }
 
     /**
@@ -70,6 +81,6 @@ public class TransactionMapper {
         if (timestamp == null) {
             return null;
         }
-        return timestamp.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return timestamp.toDate().toInstant().atZone(ZoneId.of("UTC")).toLocalDate();
     }
 }
