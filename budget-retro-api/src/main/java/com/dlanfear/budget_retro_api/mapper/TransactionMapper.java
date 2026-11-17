@@ -25,7 +25,7 @@ public class TransactionMapper {
             return null;
         }
         // Turn date string in csv to localdate
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate date = LocalDate.parse(transactionCSV.getDate(), formatter);
 
         return Transaction.builder()
