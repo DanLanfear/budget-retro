@@ -10,20 +10,36 @@ open app, read all transactions in database and display. Fetch by month and calc
 
 REQUIRES
 DONE: Database connection i guess. firebase firestore or something
-Transactions table in database WITH AUDIT COLUMNS?
+DONE: Transactions table in database WITH AUDIT COLUMNS?
 DONE: Endpoint TO process csv and display in frontend table
-Endpoint to save canonical transactions to database
+DONE: Endpoint to save canonical transactions to database
 DONE: Endpoint to read all transactions from database and return as json
-Endpoint to fetch a months transactions and return as json
 
 
 Phase 2
+-------------
+Add login and user specific transactions
+
+REQUIRES
+USER collection base
+
+gotta figure out auth
+sign in page
+log in page
+
+
+2.1 (tech debt)
+-------------
+update beans to follow better conventions
+
+
+Phase 3
 -------------
 allow uploading uncategorized transactions and allow user to categorize them in the frontend.
 REQUIRES
 Categories table in database
 
-phase 3
+phase 4
 -------------
 allow user to submit different credit card transaction formats and transform them into common categorizable format
 potentially allow editing transactions in frontend table as well as deleting/updating them before upload
@@ -32,8 +48,3 @@ double potentially allow user to edit transactions post upload in frontend table
 REQUIRES
 Card format table?
 label | date header | description header | amount header | ChargeIsNegative
-
-
-phase 4
--------------
-add login and user specific categories and transactions
